@@ -1,77 +1,449 @@
 <!DOCTYPE html>
 <html lang="el">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coming Soon | Stay Tuned</title>
-    <style>
-        /* CSS Στυλ */
-        body, html {
-            height: 100%;
-            margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>KYZ Nails – Κυράνη Ζερβού</title>
+  <!-- Google Fonts & Font Awesome 6 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        .bg-pink {
-            /* Pink Gradient Background */
-            background: linear-gradient(135deg, #ffafbd 0%, #ffc3a0 100%);
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
+    body {
+      min-height: 100vh;
+      background: linear-gradient(145deg, #fce9e6 0%, #f8e0ef 100%);
+      font-family: 'Quicksand', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      position: relative;
+    }
 
-        .container {
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            padding: 50px;
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            color: white;
-            max-width: 500px;
-            width: 90%;
-        }
+    /* Διακριτικό μοτίβο φόντου */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(circle at 25% 30%, rgba(255, 220, 230, 0.3) 4px, transparent 4px),
+                        radial-gradient(circle at 75% 70%, rgba(220, 190, 210, 0.25) 6px, transparent 6px),
+                        radial-gradient(circle at 10% 80%, #ffdbdb4d 8px, transparent 8px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
 
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-        }
+    /* Βασική δομή καθολικής κάρτας (desktop first: μια ενιαία κάρτα για μεγάλες οθόνες >1024px) */
+    .card {
+      max-width: 1000px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-radius: 42px;
+      padding: 2.5rem 2rem;
+      box-shadow: 0 30px 50px rgba(170, 120, 130, 0.25),
+                  inset 0 2px 4px rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(255, 245, 240, 0.5);
+      z-index: 2;
+    }
 
-        p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
+    /* Μικρές οθόνες και tablet (έως 1024px): μετατροπή σε 3 ανεξάρτητα boxes */
+    @media (max-width: 1024px) {
+      .card {
+        background: transparent;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        box-shadow: none;
+        border: none;
+        padding: 0.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
 
-        .divider {
-            height: 4px;
-            width: 50px;
-            background-color: white;
-            margin: 20px auto;
-            border-radius: 2px;
-        }
+      /* κάθε ενότητα γίνεται ξεχωριστό box */
+      .mobile-box {
+        background: rgba(255, 255, 255, 0.75);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border-radius: 36px;
+        padding: 1.8rem 1.5rem;
+        box-shadow: 0 15px 30px rgba(150, 100, 110, 0.2),
+                    inset 0 1px 4px rgba(255, 255, 255, 0.8);
+        border: 1px solid rgba(255, 245, 240, 0.6);
+        transition: transform 0.2s ease;
+      }
 
-        .footer {
-            margin-top: 30px;
-            font-size: 0.9rem;
+      .mobile-box:active {
+        transform: scale(0.99);
+      }
+
+      /* τίτλος "Επικοινωνία" εμφανίζεται μόνο σε μικρές οθόνες */
+      .contact-title-mobile {
+        display: block;
+        font-size: 1.8rem;
+        font-weight: 500;
+        color: #5b3f48;
+        margin-bottom: 1.2rem;
+        text-align: center;
+        letter-spacing: 0.5px;
+        border-bottom: 2px dashed #e3a5b2;
+        padding-bottom: 0.6rem;
+      }
+
+      .contact-title-desktop {
+        display: none;
+      }
+
+      /* Προσαρμογή πλέγματος υπηρεσιών: 2 στήλες ακόμα και σε tablet, αλλά αν στενέψει πολύ γίνεται 1 */
+      .service-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
+
+      /* Σε πολύ στενά (π.χ. <600px) κάνουμε 1 στήλη */
+      @media (max-width: 600px) {
+        .service-grid {
+          grid-template-columns: 1fr;
         }
-    </style>
+      }
+    }
+
+    /* desktop: κρύβουμε τον τίτλο κινητού */
+    @media (min-width: 1025px) {
+      .contact-title-mobile {
+        display: none;
+      }
+    }
+
+    /* Λογότυπο + όνομα + τοποθεσία */
+    .brand-box {
+      text-align: center;
+    }
+
+    .brand img {
+      max-width: 280px;
+      width: 100%;
+      height: auto;
+      display: inline-block;
+      filter: drop-shadow(2px 4px 8px rgba(140, 90, 100, 0.15));
+      transition: transform 0.2s ease;
+    }
+
+    .brand img:hover {
+      transform: scale(1.02);
+    }
+
+    .brand small {
+      display: block;
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: #ac7f8b;
+      margin-top: 12px;
+      letter-spacing: 1.5px;
+      border-bottom: 2px dashed #e5c5cf;
+      padding-bottom: 12px;
+    }
+
+    .location {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: #7a5b64;
+      background: rgba(255, 235, 235, 0.6);
+      padding: 10px 24px;
+      border-radius: 60px;
+      width: fit-content;
+      margin: 1.2rem auto 0 auto;
+      font-size: 1.1rem;
+      font-weight: 500;
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+    }
+
+    .location i {
+      color: #b15f6e;
+      font-size: 1.2rem;
+    }
+
+    /* Υπηρεσίες */
+    .services h3 {
+      font-size: 1.8rem;
+      font-weight: 500;
+      color: #5b3f48;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-left: 5px solid #e3a5b2;
+      padding-left: 20px;
+    }
+
+    .services h3 i {
+      color: #c97b8b;
+      font-size: 1.9rem;
+    }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem 1.5rem;
+    }
+
+    .service-item {
+      background: rgba(253, 242, 245, 0.6);
+      backdrop-filter: blur(2px);
+      padding: 0.9rem 1rem 0.9rem 1.8rem;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #3d2e33;
+      box-shadow: 0 2px 6px rgba(180, 120, 130, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: 0.15s;
+    }
+
+    .service-item i {
+      color: #b97584;
+      font-size: 1rem;
+      margin-right: 6px;
+    }
+
+    .service-item:hover {
+      background: #ffffffc0;
+      transform: scale(1.01);
+      border-color: #eccfd7;
+    }
+
+    /* Τιμές (υπενθύμιση) */
+    .pricing-note {
+      background: #eacdd4a0;
+      border-radius: 80px;
+      padding: 1rem 2rem;
+      margin: 2rem 0 1rem;
+      text-align: center;
+      backdrop-filter: blur(4px);
+      border: 1px solid #f1dbe1;
+      color: #572f3b;
+      font-size: 1.15rem;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      box-shadow: 0 8px 12px rgba(200, 140, 150, 0.1);
+    }
+
+    .pricing-note i {
+      margin-right: 10px;
+      color: #a5485c;
+      font-size: 1.3rem;
+      vertical-align: middle;
+    }
+
+    /* Επικοινωνία */
+    .contact-items {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 1.2rem 2rem;
+      margin: 1rem 0 0.5rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 245, 240, 0.6);
+      backdrop-filter: blur(4px);
+      padding: 0.75rem 1.8rem;
+      border-radius: 60px;
+      border: 1px solid rgba(255, 220, 225, 0.9);
+      transition: 0.2s;
+      font-size: 1.1rem;
+      font-weight: 500;
+      box-shadow: 0 5px 12px rgba(190, 130, 140, 0.1);
+    }
+
+    .contact-item a {
+      text-decoration: none;
+      color: #482e36;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .contact-item i {
+      font-size: 1.7rem;
+      color: #b1576b;
+      transition: 0.2s;
+    }
+
+    .contact-item:hover {
+      background: #fff4f0;
+      border-color: #ddb1bc;
+      transform: translateY(-3px);
+    }
+
+    .contact-item a:hover i {
+      color: #8b3f50;
+    }
+
+    .phone a {
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    /* Διακριτικό footer */
+    .signature {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.75rem;
+      color: #b28d99;
+      font-weight: 300;
+      letter-spacing: 0.8px;
+      border-top: 1px dashed #dec0c9;
+      padding-top: 1rem;
+    }
+
+    /* Επιπλέον ρυθμίσεις για tablet (μεταξύ 601px και 1024px) */
+    @media (min-width: 601px) and (max-width: 1024px) {
+      .brand img {
+        max-width: 320px; /* λίγο μεγαλύτερο λογότυπο για tablet */
+      }
+
+      .service-item {
+        font-size: 1.15rem;
+        padding: 1rem 1.2rem 1rem 2rem;
+      }
+
+      .contact-item {
+        font-size: 1.15rem;
+        padding: 0.9rem 2rem;
+      }
+
+      .pricing-note {
+        font-size: 1.2rem;
+      }
+    }
+
+    /* Μικρά κινητά (έως 600px) */
+    @media (max-width: 600px) {
+      .service-item {
+        font-size: 1rem;
+        padding: 0.8rem 1rem 0.8rem 1.5rem;
+      }
+
+      .contact-item {
+        font-size: 1rem;
+        padding: 0.7rem 1.5rem;
+      }
+
+      .brand img {
+        max-width: 220px;
+      }
+
+      .brand small {
+        font-size: 1.1rem;
+      }
+
+      .location {
+        font-size: 1rem;
+      }
+
+      .services h3 {
+        font-size: 1.6rem;
+      }
+
+      .contact-title-mobile {
+        font-size: 1.6rem;
+      }
+    }
+
+    a, .service-item, .contact-item {
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+  </style>
 </head>
 <body>
+  <div class="card">
 
-    <div class="bg-pink">
-        <div class="container">
-            <h1>Coming Soon</h1>
-            <div class="divider"></div>
-            <p>Ετοιμάζουμε κάτι όμορφο για εσάς. <br> Μείνετε συντονισμένοι!</p>
-            
-            <div class="footer">
-                &copy; 2026 KYZ Nails
-            </div>
-        </div>
+    <!-- BOX 1: ΛΟΓΟΤΥΠΟ + ΟΝΟΜΑ + ΤΟΠΟΘΕΣΙΑ -->
+    <div class="mobile-box brand-box">
+      <div class="brand">
+        <img src="asset/KYZ NAILS NEW LOGO (site).png" alt="KYZ Nails logo">
+        <small>Κυράνη Ζερβού</small>
+      </div>
+      <div class="location">
+        <i class="fas fa-map-pin"></i>
+        <span>Πάτρα, 264 43</span>
+      </div>
     </div>
 
+    <!-- BOX 2: ΠΑΡΟΧΕΣ / ΥΠΗΡΕΣΙΕΣ -->
+    <div class="mobile-box services">
+      <h3>
+        <i class="fas fa-spa"></i> 
+        Παροχές
+      </h3>
+      <div class="service-grid">
+        <div class="service-item"><i class="fas fa-circle" style="font-size: 0.5rem;"></i> Ημιμόνιμο Απλό</div>
+        <div class="service-item"><i class="fas fa-circle" style="font-size: 0.5rem;"></i> Ημιμόνιμο Ενισχυμένο</div>
+        <div class="service-item"><i class="fas fa-circle" style="font-size: 0.5rem;"></i> Πεντικιούρ</div>
+        <div class="service-item"><i class="fas fa-circle" style="font-size: 0.5rem;"></i> Περιποίηση κάτω άκρων</div>
+        <div class="service-item"><i class="fas fa-circle" style="font-size: 0.5rem;"></i> Επιμήκυνση με Acrygel</div>
+        <div class="service-item"><i class="fas fa-circle" style="font-size: 0.5rem;"></i> Συντήρηση</div>
+      </div>
+      <!-- Η σημείωση τιμών παραμένει εδώ, μέσα στο box υπηρεσιών -->
+      <div class="pricing-note">
+        <i class="fas fa-comment-dots"></i> 
+        Οι τιμές καθορίζονται έπειτα από επικοινωνία
+      </div>
+    </div>
+
+    <!-- BOX 3: ΕΠΙΚΟΙΝΩΝΙΑ (με τίτλο μόνο σε μικρές οθόνες) -->
+    <div class="mobile-box contact-box">
+      <!-- Τίτλος που εμφανίζεται μόνο σε μικρές συσκευές και tablet -->
+      <div class="contact-title-mobile">Επικοινωνία</div>
+      <!-- κρυφός τίτλος desktop (δεν χρειάζεται) -->
+      <div class="contact-title-desktop"></div>
+
+      <div class="contact-items">
+        <div class="contact-item">
+          <a href="https://www.instagram.com/kyznailart/" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-instagram"></i> Instagram
+          </a>
+        </div>
+        <div class="contact-item">
+          <a href="https://www.facebook.com/profile.php?id=100007090816326" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-facebook-f"></i> Facebook
+          </a>
+        </div>
+        <div class="contact-item phone">
+          <a href="tel:+306984039518">
+            <i class="fas fa-phone-alt"></i> +30 698 4039518
+          </a>
+        </div>
+      </div>
+
+      <!-- Μικρή υπογραφή μέσα στο τρίτο box -->
+      <div class="signature">
+        ✦ KYZ Nails – Πάτρα ✦
+      </div>
+    </div>
+
+  </div><!-- end .card -->
 </body>
 </html>
