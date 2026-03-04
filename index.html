@@ -103,17 +103,26 @@
         display: none;
       }
 
-      /* Προσαρμογή πλέγματος υπηρεσιών: 2 στήλες ακόμα και σε tablet, αλλά αν στενέψει πολύ γίνεται 1 */
+      /* ΒΕΛΤΙΩΣΕΙΣ ΓΙΑ ΚΙΝΗΤΑ 375px ΚΑΙ ΓΕΝΙΚΑ ΜΙΚΡΑ */
       .service-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;  /* πάντα μία στήλη σε μικρές οθόνες */
         gap: 1rem;
       }
 
-      /* Σε πολύ στενά (π.χ. <600px) κάνουμε 1 στήλη */
-      @media (max-width: 600px) {
-        .service-grid {
-          grid-template-columns: 1fr;
-        }
+      .service-item {
+        padding: 1rem 1.2rem 1rem 1.8rem;
+        font-size: 1.1rem;
+        border-radius: 60px;
+        line-height: 1.5;
+        word-break: break-word;  /* αποφυγή υπερχείλισης */
+        hyphens: auto;
+      }
+
+      .pricing-note {
+        margin-top: 2rem;
+        padding: 1.2rem 1.5rem;
+        font-size: 1.1rem;
+        line-height: 1.5;
       }
     }
 
@@ -194,6 +203,7 @@
       font-size: 1.9rem;
     }
 
+    /* desktop grid */
     .service-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -214,12 +224,15 @@
       align-items: center;
       gap: 8px;
       transition: 0.15s;
+      line-height: 1.4;
+      word-break: break-word;
     }
 
     .service-item i {
       color: #b97584;
       font-size: 1rem;
       margin-right: 6px;
+      flex-shrink: 0;
     }
 
     .service-item:hover {
@@ -317,57 +330,67 @@
       padding-top: 1rem;
     }
 
-    /* Επιπλέον ρυθμίσεις για tablet (μεταξύ 601px και 1024px) */
-    @media (min-width: 601px) and (max-width: 1024px) {
-      .brand img {
-        max-width: 320px; /* λίγο μεγαλύτερο λογότυπο για tablet */
+    /* ΕΞΤΡΑ ΒΕΛΤΙΩΣΕΙΣ ΓΙΑ ΠΟΛΥ ΜΙΚΡΕΣ ΟΘΟΝΕΣ (375px και κάτω) */
+    @media (max-width: 380px) {
+      .mobile-box {
+        padding: 1.5rem 1rem;
       }
 
       .service-item {
-        font-size: 1.15rem;
-        padding: 1rem 1.2rem 1rem 2rem;
+        padding: 0.8rem 0.8rem 0.8rem 1.2rem;
+        font-size: 0.95rem;
+        gap: 6px;
       }
 
-      .contact-item {
-        font-size: 1.15rem;
-        padding: 0.9rem 2rem;
+      .service-item i {
+        font-size: 0.8rem;
+        margin-right: 2px;
       }
 
       .pricing-note {
-        font-size: 1.2rem;
+        font-size: 0.9rem;
+        padding: 0.8rem 1rem;
+        margin-top: 1.5rem;
       }
-    }
 
-    /* Μικρά κινητά (έως 600px) */
-    @media (max-width: 600px) {
-      .service-item {
-        font-size: 1rem;
-        padding: 0.8rem 1rem 0.8rem 1.5rem;
+      .pricing-note i {
+        font-size: 1.1rem;
+        margin-right: 6px;
       }
 
       .contact-item {
-        font-size: 1rem;
-        padding: 0.7rem 1.5rem;
+        padding: 0.6rem 1.2rem;
+        font-size: 0.95rem;
+      }
+
+      .contact-item i {
+        font-size: 1.4rem;
       }
 
       .brand img {
-        max-width: 220px;
+        max-width: 180px;
       }
 
       .brand small {
-        font-size: 1.1rem;
-      }
-
-      .location {
         font-size: 1rem;
       }
 
+      .location {
+        font-size: 0.9rem;
+        padding: 6px 16px;
+      }
+
       .services h3 {
-        font-size: 1.6rem;
+        font-size: 1.5rem;
+        padding-left: 15px;
       }
 
       .contact-title-mobile {
-        font-size: 1.6rem;
+        font-size: 1.5rem;
+      }
+
+      .signature {
+        margin-top: 1.5rem;
       }
     }
 
@@ -392,7 +415,7 @@
       </div>
     </div>
 
-    <!-- BOX 2: ΠΑΡΟΧΕΣ / ΥΠΗΡΕΣΙΕΣ -->
+    <!-- BOX 2: ΠΑΡΟΧΕΣ / ΥΠΗΡΕΣΙΕΣ (ΒΕΛΤΙΩΜΕΝΗ ΕΜΦΑΝΙΣΗ) -->
     <div class="mobile-box services">
       <h3>
         <i class="fas fa-spa"></i> 
@@ -406,7 +429,7 @@
         <div class="service-item"><i class="fas fa-circle" style="font-size: 0.5rem;"></i> Επιμήκυνση με Acrygel</div>
         <div class="service-item"><i class="fas fa-circle" style="font-size: 0.5rem;"></i> Συντήρηση</div>
       </div>
-      <!-- Η σημείωση τιμών παραμένει εδώ, μέσα στο box υπηρεσιών -->
+      <!-- Η σημείωση τιμών -->
       <div class="pricing-note">
         <i class="fas fa-comment-dots"></i> 
         Οι τιμές καθορίζονται έπειτα από επικοινωνία
@@ -417,7 +440,7 @@
     <div class="mobile-box contact-box">
       <!-- Τίτλος που εμφανίζεται μόνο σε μικρές συσκευές και tablet -->
       <div class="contact-title-mobile">Επικοινωνία</div>
-      <!-- κρυφός τίτλος desktop (δεν χρειάζεται) -->
+      <!-- κρυφός τίτλος desktop -->
       <div class="contact-title-desktop"></div>
 
       <div class="contact-items">
